@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Review Sentiment Analyzer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Customer Review Sentiment Analyzer</h1>
+        <p class="subtitle">
+            Enter a customer review and predict whether the sentiment is
+            Positive, Neutral or Negative.
+        </p>
+        <form action="/predict" method="POST">
+            <textarea
+                name="review"
+                rows="8"
+                placeholder="Type your product review here..."
+                required>{{ review }}</textarea>
+            <button type="submit">
+                Analyze Sentiment
+            </button>
+        </form>
+
+        {% if result %}
+        <div class="result-card">
+            <h2>Prediction</h2>
+            <span class="
+            {% if result=='positive' %}
+            positive
+            {% elif result=='negative' %}
+            negative
+            {% else %}
+            neutral
+            {% endif %}
+            ">
+                {{ result.capitalize() }}
+            </span>
+
+            <h3>Your Review</h3>
+            <p class="review">
+                {{ submitted_review }}
+            </p>
+        </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>
